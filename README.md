@@ -1,2 +1,2 @@
-# redis-db-springboot
-redis database use for rest endpoints in springboot
+# redis-cache-springboot
+redis cache implemented by springboot
