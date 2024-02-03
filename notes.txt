@@ -63,7 +63,7 @@ OK
         "pages": 224
     },
     {
-        "id": 3,
+        "id": 2,
         "title": "1984",
         "author": "George Orwell",
         "description": "A dystopian novel by George Orwell",
@@ -71,7 +71,7 @@ OK
         "pages": 328
     },
     {
-        "id": 4,
+        "id": 3,
         "title": "The Great Gatsby",
         "author": "F. Scott Fitzgerald",
         "description": "A tale of the Jazz Age in America",
@@ -79,7 +79,7 @@ OK
         "pages": 180
     },
     {
-        "id": 5,
+        "id": 4,
         "title": "Harry Potter and the Sorcerer's Stone",
         "author": "J.K. Rowling",
         "description": "The first book in the Harry Potter series",
@@ -87,3 +87,36 @@ OK
         "pages": 320
     }
 ]
+
+
+
+
+
+
+Redis primarily stores its data in RAM for extremely fast read and write operations⁴. The data is organized using key-value pairs, where keys are unique identifiers, and values can be of different types, including strings, lists, sets, sorted sets, hashes, bitmaps, and more⁴.
+
+For data durability, Redis offers different persistence options⁴:
+- **RDB Snapshot**: Redis periodically saves a point-in-time snapshot of the dataset to disk, which can be configured at intervals⁴.
+- **AOF (Append-Only File)**: Redis logs every write operation in an append-only log file. This log can be used to reconstruct the dataset in case of data loss⁴.
+- **Hybrid Persistence**: Redis allows you to use a combination of RDB and AOF for both efficiency and durability⁴.
+
+When running inside a Docker container, Redis stores its data in the same default location as it would outside the container. The default location of the Redis data storage is `/data` within the container⁶.
+
+As for the flow from hitting the request from UI to Redis database, it typically involves the following steps¹²:
+1. **User Interaction**: The user interacts with the UI, which triggers an event in the application.
+2. **Server Request**: This event results in a request to the server where your application is running.
+3. **Data Fetching**: The server then communicates with Redis to fetch or manipulate the data. This could involve creating, reading, updating, or deleting data.
+4. **Response**: The server receives the data from Redis, processes it if necessary, and sends it back to the client.
+5. **UI Update**: Finally, the client-side of your application (the UI) receives this data and uses it to update the UI.
+
+The exact flow can vary depending on the specifics of your application architecture and the libraries or frameworks you're using. For example, in a Node.js application using Express and socket.io, you might use the `lpush` method to push data to Redis and the `lrange` method to retrieve it². In the frontend (like Angular), you can get the data with `$http` service²..
+
+(1) How does Redis store data? - GeeksforGeeks. https://www.geeksforgeeks.org/how-does-redis-store-data/.
+(2) [Answered] Where Does Redis Store Data in Docker? - dragonflydb.io. https://www.dragonflydb.io/faq/where-does-redis-store-data-docker.
+(3) Use the REST API | Redis Documentation Center. https://docs.redis.com/latest/rc/api/get-started/use-rest-api/.
+(4) Retrieve data from Redis and display them on the frontend. https://stackoverflow.com/questions/31404133/retrieve-data-from-redis-and-display-them-on-the-frontend.
+(5) Create an RPA Flow that Connects to Redis Data in UiPath Studio. https://www.cdata.com/kb/tech/redis-odbc-uipath.rst.
+(6) Redis as an in-memory data structure store quick start guide. https://redis.io/docs/get-started/data-store/.
+(7) How Does Redis Store Data: Detailed Insights - MarketSplash. https://marketsplash.com/tutorials/redis/how-does-redis-store-data/.
+(8) undefined. https://api.redislabs.com/v1%29.
+(9) en.wikipedia.org. https://en.wikipedia.org/wiki/Redis.

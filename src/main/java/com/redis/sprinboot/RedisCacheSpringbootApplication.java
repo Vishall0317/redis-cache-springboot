@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RedisSpringbootMysqlApplication {
+public class RedisCacheSpringbootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RedisSpringbootMysqlApplication.class, args);
+		SpringApplication.run(RedisCacheSpringbootApplication.class, args);
 	}
 
 }

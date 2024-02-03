@@ -2,6 +2,7 @@ package com.redis.sprinboot.service;
 
 import com.redis.sprinboot.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBookById(Long id) {
-        return (Book) redisTemplate.opsForHash().get(HASH_KEY, id);
+        System.out.println("getBookById() called !!");
+        if(redisTemplate.opsForHash().hasKey(HASH_KEY, id)) {
+            return (Book) redisTemplate.opsForHash().get(HASH_KEY, id);
+        }
+        return null;
     }
 
     @Override
@@ -33,17 +38,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book updateBook(Long id, Book book) {
+        System.out.println("updateBook() called !!");
         if (redisTemplate.opsForHash().hasKey(HASH_KEY, id)) {
             book.setId(id);
             redisTemplate.opsForHash().put(HASH_KEY, id, book);
+            return book;
         }
         return null;
     }
 
     @Override
     public String deleteBook(Long id) {
-        redisTemplate.opsForHash().delete(HASH_KEY, id);
-        return "product removed!!";
+        System.out.println("deleteBook() called !!");
+        if (redisTemplate.opsForHash().hasKey(HASH_KEY, id)) {
+            redisTemplate.opsForHash().delete(HASH_KEY, id);
+            return "product removed!!";
+        }
+        return "product already removed!!";
     }
 }
-
